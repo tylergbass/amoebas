@@ -1,18 +1,30 @@
 import 'libraries/noble/Noble'
-
-import 'utilities/Utilities'
-
 import 'scenes/ExampleScene'
 import 'scenes/ExampleScene2'
+import 'scenes/BaseScene'
+import 'Pet'
 
-Noble.Settings.setup({
-	Difficulty = "Medium"
-})
+DEBUG_MODE = true;
+
+-- Noble.Settings.setup({
+-- 	Difficulty = "Medium"
+-- })
 
 Noble.GameData.setup({
-	Score = 0
+	pet = {
+		type = 'ducky',
+		name = 'Quackerton the 5th',
+		status = {
+			happiness = 1
+		},    
+	}
 })
 
-Noble.showFPS = true
+
+if DEBUG_MODE then
+	Noble.showFPS = true
+end
+
+PetInstance = Pet(Noble.GameData.get('pet'))
 
 Noble.new(ExampleScene, 1.5, Noble.TransitionType.CROSS_DISSOLVE)

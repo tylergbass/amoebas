@@ -8,7 +8,6 @@ local logo
 local menu
 local sequence
 
-local difficultyValues = {"Rare", "Medium", "Well Done"}
 
 function ExampleScene:init()
 	ExampleScene.super.init(self)
@@ -18,6 +17,7 @@ function ExampleScene:init()
 
 	menu = Noble.Menu.new(false, Noble.Text.ALIGN_LEFT, false, Graphics.kColorWhite, 4,6,0, Noble.Text.FONT_SMALL)
 
+	menu:addItem('Home', function() Noble.transition(BaseScene, 1, Noble.TransitionType.DIP_TO_BLACK) end)
 	menu:addItem(Noble.TransitionType.DIP_TO_BLACK, function() Noble.transition(ExampleScene2, 1, Noble.TransitionType.DIP_TO_BLACK) end)
 	menu:addItem(Noble.TransitionType.DIP_TO_WHITE, function() Noble.transition(ExampleScene2, 1, Noble.TransitionType.DIP_TO_WHITE) end)
 	menu:addItem(Noble.TransitionType.DIP_METRO_NEXUS, function() Noble.transition(ExampleScene2, 1, Noble.TransitionType.DIP_METRO_NEXUS) end)
@@ -27,18 +27,7 @@ function ExampleScene:init()
 	menu:addItem(Noble.TransitionType.SLIDE_OFF_DOWN, function() Noble.transition(ExampleScene2, 1, Noble.TransitionType.SLIDE_OFF_DOWN) end)
 	menu:addItem(Noble.TransitionType.SLIDE_OFF_LEFT, function() Noble.transition(ExampleScene2, 1, Noble.TransitionType.SLIDE_OFF_LEFT) end)
 	menu:addItem(Noble.TransitionType.SLIDE_OFF_RIGHT, function() Noble.transition(ExampleScene2, 1, Noble.TransitionType.SLIDE_OFF_RIGHT) end)
-	menu:addItem(
-		"Difficulty",
-		function()
-			local oldValue = Noble.Settings.get("Difficulty")
-			local newValue = math.ringInt(table.indexOfElement(difficultyValues, oldValue)+1, 1, 3)
-			Noble.Settings.set("Difficulty", difficultyValues[newValue])
-			menu:setItemDisplayName("Difficulty", "Difficulty: " .. difficultyValues[newValue])
-		end,
-		nil,
-		"Difficulty: " .. Noble.Settings.get("Difficulty")
-	)
-
+	
 	local crankTick = 0
 
 	ExampleScene.inputHandler = {
