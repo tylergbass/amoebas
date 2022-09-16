@@ -1,0 +1,8 @@
+name=Amoebas
+author=TODO
+description=TODO
+bundleID=com.yourdomain.GameName
+version=0.0.1
+buildNumber=1
+imagePath=assets/launcher/
+launchSoundPath=assets/launcher/sound.wav
