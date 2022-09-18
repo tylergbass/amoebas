@@ -12,8 +12,8 @@ DEBUG_MODE = true;
 
 Noble.GameData.setup({
 	pet = {
-		type = 'ducky',
-		name = 'Quackerton the 5th',
+		type = 'adventurer',
+		name = 'Hero',
 		status = {
 			happiness = 1
 		},    
@@ -21,8 +21,21 @@ Noble.GameData.setup({
 })
 
 
+
+
 if DEBUG_MODE then
-	Noble.showFPS = true
+	print('~~~ DEBUG MODE ~~~')
+
+	Noble.showFPS = true;
+
+	-- Reset old test save values
+	Noble.GameData.set('pet', {
+		type = 'adventurer',
+		name = 'Hero',
+		status = {
+			happiness = 1
+		},    
+	})
 end
 
 PetInstance = Pet(Noble.GameData.get('pet'))
