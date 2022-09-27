@@ -7,15 +7,13 @@ BaseScene.backgroundColor = Graphics.kColorWhite		-- This is the background colo
 function BaseScene:init()
 	BaseScene.super.init(self)
 	playdate.graphics.setColor(playdate.graphics.kColorBlack)
-
-	PetInstance:moveTo(200, 100);
 end
 
 -- When transitioning from another scene, this runs as soon as this scene needs to be visible (this moment depends on which transition type is used).
 function BaseScene:enter()
 	BaseScene.super.enter(self)
 	PetInstance:add()
-	
+	PetInstance:moveTo((playdate.display.getWidth()/2) - (92/2), (playdate.display.getHeight()/2) - (101/2));	
 end
 
 -- This runs once a transition from another scene is complete.
@@ -26,7 +24,6 @@ end
 -- This runs once per frame.
 function BaseScene:update()
 	BaseScene.super.update(self)
-	-- PetInstance:bounce();
 	PetInstance:draw()
 end
 
@@ -53,14 +50,4 @@ function BaseScene:resume()
 	BaseScene.super.resume(self)
 end
 
-BaseScene.inputHandler = {
-
-	AButtonDown = function()
-		PetInstance.animation:setState('run')
-
-	end,
-
-	BButtonDown = function()
-		PetInstance.animation:setState('idle')
-	end
-}
+BaseScene.inputHandler = {}

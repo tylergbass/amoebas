@@ -1,0 +1,5 @@
+{
+    "tasks": {
+        "animationGen": "deno run --allow-write --allow-run --allow-read=. ./scripts/animationGen.ts"
+    }
+}

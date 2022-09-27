@@ -3,13 +3,14 @@ import 'scenes/ExampleScene'
 import 'scenes/ExampleScene2'
 import 'scenes/BaseScene'
 import 'Pet'
+import 'utilities/Utilities'
 
-DEBUG_MODE = true;
+-- TODO
+Noble.Settings.setup({
+	Difficulty = "Medium"
+})
 
--- Noble.Settings.setup({
--- 	Difficulty = "Medium"
--- })
-
+-- TODO
 Noble.GameData.setup({
 	pet = {
 		type = 'adventurer',
@@ -20,22 +21,9 @@ Noble.GameData.setup({
 	}
 })
 
-
-
-
+DEBUG_MODE = true;
 if DEBUG_MODE then
-	print('~~~ DEBUG MODE ~~~')
-
-	Noble.showFPS = true;
-
-	-- Reset old test save values
-	Noble.GameData.set('pet', {
-		type = 'adventurer',
-		name = 'Hero',
-		status = {
-			happiness = 1
-		},    
-	})
+	Utilities.enableDevOptions();
 end
 
 PetInstance = Pet(Noble.GameData.get('pet'))
