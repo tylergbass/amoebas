@@ -1,0 +1,3 @@
+Cursor assets from https://lintnaya.itch.io/roret-cursor
+
+gm convert *.png +append -background none -gravity center -extent 28x28 spriteName-table-28-28.png
