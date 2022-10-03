@@ -48,6 +48,8 @@ function Pet:init(petSaveData)
 
     PetConstructors[type](self);
 
+    self:setSize(92, 101);
+    self:setCollideRect( 0, 0, self:getSize() );
     self.isBouncing = false;
 end
 
@@ -63,7 +65,7 @@ function Pet:draw(__x, __y)
     end
 
     if DEBUG_MODE then
-        Noble.Text.draw(self.animation.currentName, 2, 15);
+        Noble.Text.draw(self.animation.currentName, 0, 0);
     end
 end
 
@@ -80,11 +82,11 @@ function Pet:bounce()
 
     self:moveTo(self.x + self.xBounceSpeed, self.y + self.yBounceSpeed);
 
-    if (self.x + 92 >= playdate.display.getWidth()) or self.x <= 0 then
+    if (self.x + (self.width/2) >= playdate.display.getWidth()) or (self.x - (self.width/2)) <= 0 then
         self.xBounceSpeed = -self.xBounceSpeed;
     end 
-
-    if (self.y + 101 >= playdate.display.getHeight()) or self.y <= 0 then
+ 
+    if (self.y + (self.height/2) >= playdate.display.getHeight()) or (self.y - (self.height/2)) <= 0 then
         self.yBounceSpeed = -self.yBounceSpeed;
     end 
 
@@ -104,4 +106,9 @@ function Pet:walkToOrigin()
     self.yBounceSpeed = slope[1]/30;
 
     self:moveTo(self.x + self.xBounceSpeed, self.y + self.yBounceSpeed);
+end
+
+function Pet:handleCursorClickDown()
+    -- TODO: remove later
+    self.animation:setState("needy")
 end

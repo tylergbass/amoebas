@@ -39,3 +39,7 @@ function Utilities.slope(x1, y1, x2, y2)
 	local run = x2 - x1;
 	return { rise, run }
 end
+
+function Utilities.centerScreen()
+	return (playdate.display.getWidth()/2), (playdate.display.getHeight()/2)
+end
