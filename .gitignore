@@ -43,4 +43,6 @@ luac.out
 
 builds/
 
+*.pdx/
+
 source/libraries/noble/docs/

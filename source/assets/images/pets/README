@@ -1,0 +1,3 @@
+Each folder name in this `pets` dir should correspond with the name of a pet type.
+
+Each folder contains a spritesheet per individual animation, which can be compiled to a single spritesheet using `scripts/spritesheet.sh`.

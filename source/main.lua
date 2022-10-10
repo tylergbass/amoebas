@@ -3,26 +3,27 @@ import 'scenes/ExampleScene'
 import 'scenes/ExampleScene2'
 import 'scenes/BaseScene'
 import 'Pet'
+import 'utilities/Utilities'
 
-DEBUG_MODE = true;
+-- TODO
+Noble.Settings.setup({
+	Difficulty = "Medium"
+})
 
--- Noble.Settings.setup({
--- 	Difficulty = "Medium"
--- })
-
+-- TODO
 Noble.GameData.setup({
 	pet = {
-		type = 'ducky',
-		name = 'Quackerton the 5th',
+		type = 'adventurer',
+		name = 'Hero',
 		status = {
 			happiness = 1
 		},    
 	}
 })
 
-
+DEBUG_MODE = true;
 if DEBUG_MODE then
-	Noble.showFPS = true
+	Utilities.enableDevOptions();
 end
 
 PetInstance = Pet(Noble.GameData.get('pet'))
