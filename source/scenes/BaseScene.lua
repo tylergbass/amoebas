@@ -1,3 +1,5 @@
+import 'utilities/Utilities'
+
 BaseScene = {}
 class("BaseScene").extends(NobleScene)
 
@@ -6,14 +8,16 @@ BaseScene.backgroundColor = Graphics.kColorWhite		-- This is the background colo
 -- This runs when your scene's object is created, which is the first thing that happens when transitining away from another scene.
 function BaseScene:init()
 	BaseScene.super.init(self)
-	playdate.graphics.setColor(playdate.graphics.kColorBlack)
+	playdate.graphics.setColor(playdate.graphics.kColorBlack)	
 end
 
 -- When transitioning from another scene, this runs as soon as this scene needs to be visible (this moment depends on which transition type is used).
 function BaseScene:enter()
 	BaseScene.super.enter(self)
 	PetInstance:add()
-	PetInstance:moveTo((playdate.display.getWidth()/2) - (92/2), (playdate.display.getHeight()/2) - (101/2));	
+	CursorInstance:add()
+	PetInstance:moveTo(Utilities.centerScreen());	
+	CursorInstance:moveTo(Utilities.centerScreen());	
 end
 
 -- This runs once a transition from another scene is complete.
@@ -24,7 +28,8 @@ end
 -- This runs once per frame.
 function BaseScene:update()
 	BaseScene.super.update(self)
-	PetInstance:draw()
+
+	-- PetInstance:bounce()
 end
 
 -- This runs once per frame, and is meant for drawing code.
@@ -50,4 +55,45 @@ function BaseScene:resume()
 	BaseScene.super.resume(self)
 end
 
-BaseScene.inputHandler = {}
+BaseScene.inputHandler = {
+
+	AButtonDown = function ()
+		CursorInstance:clickDown()
+	end,
+
+	AButtonUp = function ()
+		CursorInstance:clickUp()
+	end,
+
+	upButtonDown = function()
+		CursorInstance:moveUp();
+	end,
+	
+	upButtonHold = function()
+		CursorInstance:moveUp();
+	end,
+
+	rightButtonDown = function()
+		CursorInstance:moveRight();
+	end,
+	
+	rightButtonHold = function()
+		CursorInstance:moveRight();
+	end,
+
+	downButtonDown = function()
+		CursorInstance:moveDown();
+	end,
+	
+	downButtonHold = function()
+		CursorInstance:moveDown();
+	end,
+
+	leftButtonDown = function()
+		CursorInstance:moveLeft();
+	end,
+	
+	leftButtonHold = function()
+		CursorInstance:moveLeft();
+	end,
+}
