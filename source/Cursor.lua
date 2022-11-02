@@ -17,7 +17,6 @@ function Cursor:init()
     
     self:setSize(28, 28);
     self:setZIndex(32767); -- max possible value
-    print(self:getSize())
     self:setCollideRect( 0, 0, self:getSize() );
 end
 

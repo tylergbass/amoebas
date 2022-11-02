@@ -5,11 +5,14 @@ class("BaseScene").extends(NobleScene)
 
 BaseScene.backgroundColor = Graphics.kColorWhite		-- This is the background color of this scene.
 
+local mySprite;
 -- This runs when your scene's object is created, which is the first thing that happens when transitining away from another scene.
 function BaseScene:init()
 	BaseScene.super.init(self)
-	playdate.graphics.setColor(playdate.graphics.kColorBlack)	
+	playdate.graphics.setColor(playdate.graphics.kColorBlack)
+	mySprite = NobleSprite("assets/images/menu/know.png");
 end
+
 
 -- When transitioning from another scene, this runs as soon as this scene needs to be visible (this moment depends on which transition type is used).
 function BaseScene:enter()
@@ -18,6 +21,8 @@ function BaseScene:enter()
 	CursorInstance:add()
 	PetInstance:moveTo(Utilities.centerScreen());	
 	CursorInstance:moveTo(Utilities.centerScreen());	
+
+	self:addSprite(mySprite)
 end
 
 -- This runs once a transition from another scene is complete.
@@ -35,6 +40,7 @@ end
 -- This runs once per frame, and is meant for drawing code.
 function BaseScene:drawBackground()
 	BaseScene.super.drawBackground(self)
+	mySprite:draw()
 end
 
 -- This runs as as soon as a transition to another scene begins.

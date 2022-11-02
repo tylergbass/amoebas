@@ -14,7 +14,7 @@ Noble.Settings.setup({
 -- TODO
 Noble.GameData.setup({
 	pet = {
-		type = 'adventurer',
+		type = 'babyAmoeba',
 		name = 'Hero',
 		status = {
 			happiness = 1
@@ -22,12 +22,12 @@ Noble.GameData.setup({
 	}
 })
 
+CursorInstance = Cursor();
+PetInstance = Pet(Noble.GameData.get('pet'))
+
 DEBUG_MODE = true;
 if DEBUG_MODE then
 	Utilities.enableDevOptions();
 end
-
-CursorInstance = Cursor();
-PetInstance = Pet(Noble.GameData.get('pet'))
 
 Noble.new(ExampleScene, 1.5, Noble.TransitionType.CROSS_DISSOLVE)

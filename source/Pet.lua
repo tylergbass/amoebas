@@ -4,39 +4,64 @@ Pet = {}
 
 class('Pet').extends(NobleSprite) 
 
--- Specific functionality for pet sub-types
--- Animation assets for each sub-type are retrieved from "assets/images/pets/<petName>/"
--- -- e.g. "assets/images/pets/microbe1/"
-local PetConstructors = {
-    microbe1 = function(self)
-        
-        -- #frames
-        -- 1
-        self.animation:addState("idle", 1, 1, nil, true, nil, 3)
-        -- 8
-        self.animation:addState("disturbed", 1, 8, nil, true, nil, 3)
-        -- 9
-        self.animation:addState("dizzy", 9, 17, nil, true, nil, 3)
-        -- 20
-        self.animation:addState("eating", 18, 37, nil, true, nil, 3)
-        -- 16
-        self.animation:addState("excited", 38, 53, nil, true, nil, 3)
-        -- 14
-        self.animation:addState("needy", 54, 67, nil, true, nil, 3)
-        -- 11
-        self.animation:addState("sad", 68, 78, nil, true, nil, 3)
-        -- 4
-        self.animation:addState("sleeping", 79, 82, nil, true, nil, 3)
-        -- 9
-        self.animation:addState("tired", 83, 91, nil, true, nil, 3)
-        -- 5
-        self.animation:addState("walking", 92, 96, nil, true, nil, 3)
-    end
+local PetData = {
+    microbe1 = {
+        size = { 92, 101 },
+        animations = {
+            { 'disturbed', 8 },
+            { 'dizzy', 27 },
+            { 'eating', 59 },
+            { 'excited', 53 },
+            { 'idle', 1 },
+            { 'needy', 40 },
+            { 'sad', 11 },
+            { 'sleeping', 4 },
+            { 'tired', 10 },
+            { 'walking', 5 },
+        },
+    },
+    babyAmoeba = {
+        size = { 63, 57 },
+        animations = {
+            { 'dizzy', 3 },
+            { 'eating', 8 },
+            { 'excited', 12 },
+            { 'idle', 3 },
+            { 'needy', 11 },
+            { 'sad', 2 },
+            { 'tired', 3 },
+            { 'walking', 4 },
+        },
+    },
+    vibrio = {
+        size = { 75, 114 },
+        animations = {
+            { 'dizzy', 13 },
+            { 'excited', 7 },
+            { 'idle', 2 },
+            { 'needy', 9 },
+            { 'sad', 3 },
+            { 'sleeping', 4 },
+            { 'walking', 4 },
+        },
+    },
+
 }
+
+local initAnimationsFromData = function (self, animations)
+    local lastValue = 0;
+    for _i,v in ipairs(animations) do
+        local newValue = lastValue + v[2]
+        self.animation:addState(v[1], lastValue + 1, newValue, nil, true, nil, 3)
+        lastValue = newValue;
+    end
+end
 
 function Pet:init(petSaveData)
     local type = petSaveData.type;
-    if (PetConstructors[type] == nil) then
+
+    self.data = PetData[type];
+    if (self.data == nil) then
         error(tostring(type) .. " is not a valid pet type :(")
     end
 
@@ -46,9 +71,10 @@ function Pet:init(petSaveData)
         true
     )
 
-    PetConstructors[type](self);
 
-    self:setSize(92, 101);
+    initAnimationsFromData(self, self.data.animations)
+
+    self:setSize(self.data.size[1], self.data.size[2]);
     self:setCollideRect( 0, 0, self:getSize() );
     self.isBouncing = false;
 end
@@ -111,4 +137,11 @@ end
 function Pet:handleCursorClickDown()
     -- TODO: remove later
     self.animation:setState("needy")
+end
+
+function Pet:getAnimationNames()
+    local ret = Utilities.map(self.data.animations, function(item)
+        return item[1]
+    end)
+    return ret
 end
