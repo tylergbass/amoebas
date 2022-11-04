@@ -71,9 +71,9 @@ function Pet:init(petSaveData)
         true
     )
 
-
     initAnimationsFromData(self, self.data.animations)
 
+    self:setScale(8);
     self:setSize(self.data.size[1], self.data.size[2]);
     self:setCollideRect( 0, 0, self:getSize() );
     self.isBouncing = false;

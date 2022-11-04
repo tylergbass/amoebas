@@ -49,3 +49,11 @@ function Utilities.map(tbl, f)
     end
     return t
 end
+
+function Utilities.getIndex(list, x)
+	for idx, v in pairs(list) do
+		if v == x then return idx end
+	end
+	return 0
+end
+
