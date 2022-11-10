@@ -6,7 +6,7 @@ const baseDirPath = "source/assets/images/pets/";
 for await (const dirEntry of Deno.readDir(baseDirPath)) {
   if (dirEntry.isDirectory) {
     await Deno.run({
-      cmd: `gm convert *_spriteSheet.png +append ${dirEntry.name}-table-92-101.png`.split(
+      cmd: `gm convert *_*.png +append ${dirEntry.name}-table-92-101.png`.split(
         " ",
       ),
       cwd: baseDirPath + dirEntry.name,

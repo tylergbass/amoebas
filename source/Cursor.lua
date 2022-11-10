@@ -10,6 +10,8 @@ function Cursor:init()
     )
 
     self.speed = 8;
+    self.isActive = false;
+    self:setVisible(false);
 
     self.animation:addState("default", 7, 7, nil, true, nil, 3);
     self.animation:addState("pointer", 27, 27, nil, true, nil, 3);
@@ -17,7 +19,6 @@ function Cursor:init()
     
     self:setSize(28, 28);
     self:setZIndex(32767); -- max possible value
-    print(self:getSize())
     self:setCollideRect( 0, 0, self:getSize() );
 end
 
@@ -35,6 +36,10 @@ function Cursor:update()
 end
 
 function Cursor:clickDown()
+    if (not self.isActive) then
+        return;
+    end
+
     self.isClicking = true;
     local sprites = self:overlappingSprites();
     if #sprites == 0 then
@@ -47,6 +52,10 @@ function Cursor:clickDown()
 end
 
 function Cursor:clickUp()
+    if (not self.isActive) then
+        return;
+    end
+
 	self.isClicking = false;
     local sprites = self:overlappingSprites();
     if #sprites == 0 then
@@ -62,6 +71,10 @@ end
 
 -- bound :moveBy by the screen rect
 function Cursor:moveByBounded(__x, __y)
+
+    if (not self.isActive) then
+        return;
+    end
 
     -- x bounds
     if (self.x + (self.width/2) <= playdate.display.getWidth()) and __x > 0
@@ -90,4 +103,9 @@ end
 
 function Cursor:moveLeft()
     self:moveByBounded(-self.speed, 0);
+end
+
+function Cursor:setActive(bool)
+    self:setVisible(bool);
+    self.isActive = bool;
 end

@@ -1,0 +1,13 @@
+{
+    "Lua.runtime.nonstandardSymbol": [
+        "+=",
+        "-=",
+        "*=",
+        "/="
+    ],
+    "Lua.workspace.library": [
+        "~/PlaydateSDK-1.12.3/CoreLibs/"
+    ],
+    "deno.enable": true,
+    "deno.unstable": true
+}
