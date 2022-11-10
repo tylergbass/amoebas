@@ -13,7 +13,11 @@ or
 
 ## Running Game Simulator
 
-TODO docs
+- Install the Playdate SDK
+- copy the .vscode template and rename it `.vscode`
+- install the "Playdate" extension by "Orta"
+- Edit the two files in your `.vscode` folder to link to the Playdate SDK `CoreLibs` folder
+- Press f5, you should be good to go!
 
 ## Project Structure
 
