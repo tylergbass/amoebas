@@ -1,9 +1,12 @@
 import 'utilities/Utilities'
+import 'FSM'
 
 Pet = {}
 
+-- Read NobleSprite docs
 class('Pet').extends(NobleSprite) 
 
+-- Data for Pet subtypes. You could also implement this as actual subclasses instead. 
 local PetData = {
     microbe1 = {
         size = { 92, 101 },
@@ -48,6 +51,7 @@ local PetData = {
 
 }
 
+-- Calls sprite.addState for each animation in the above table
 local initAnimationsFromData = function (self, animations)
     local lastValue = 0;
     for _i,v in ipairs(animations) do
@@ -57,14 +61,17 @@ local initAnimationsFromData = function (self, animations)
     end
 end
 
+-- The Pet class. One singleton instance of Pet is constructed in main.lua
 function Pet:init(petSaveData)
     local type = petSaveData.type;
 
+    -- Error if the `type` doesn't exist in PetData
     self.data = PetData[type];
     if (self.data == nil) then
         error(tostring(type) .. " is not a valid pet type :(")
     end
 
+    -- The assets in the `pets` folder maps to the keys of the PetData folder
     Pet.super.init(
         self, 
         "assets/images/pets/" .. (type) .. "/" .. (type),
@@ -73,12 +80,33 @@ function Pet:init(petSaveData)
 
     initAnimationsFromData(self, self.data.animations)
 
+    -- This is a state machine library I found. 
+    -- You don't *have* to use this; you might find that simple IF statements in the `update` method work better for you. Your call!
+    self.states = {
+        hunger = FSM.create({
+            initial = "satisfied",
+            events = {
+              {name = "feed",  from = "starving",  to = "hungry"},
+              {name = "feed",  from = "hungry",  to = "satisfied"},
+              {name = "feed",  from = "satisfied",  to = "full"},
+              {name = "starve",  from = "hungry",  to = "satisfied"},
+
+            }
+        })
+    }
+
     self:setScale(8);
     self:setSize(self.data.size[1], self.data.size[2]);
     self:setCollideRect( 0, 0, self:getSize() );
     self.isBouncing = false;
 end
 
+-- runs each tick
+function Pet:update()
+    
+end
+
+-- runs each tick, draw code
 function Pet:draw(__x, __y)
     Pet.super.draw(
         self,
@@ -95,6 +123,8 @@ function Pet:draw(__x, __y)
     end
 end
 
+
+-- I haven't tested this in a while and I have made a lot of changes since implementing this
 Pet.xBounceSpeed = 1.5;
 Pet.yBounceSpeed = 1.5;
 function Pet:bounce()
@@ -118,27 +148,12 @@ function Pet:bounce()
 
 end
 
--- This is bad, look into pathfinding as an alternative
-function Pet:walkToOrigin()
-    local slope = Utilities.slope(self.x, self.y, (playdate.display.getWidth()/2) - (92/2), (playdate.display.getHeight()/2) - (101/2))
-        
-    if (math.abs(slope[1]) < 10 and math.abs(slope[2]) < 10) then
-        self.xBounceSpeed = 0;
-        self.yBounceSpeed = 0;
-        return;
-    end
-    
-    self.xBounceSpeed = slope[2]/30;
-    self.yBounceSpeed = slope[1]/30;
-
-    self:moveTo(self.x + self.xBounceSpeed, self.y + self.yBounceSpeed);
-end
-
+-- I am proud of my cursor code, see how easy it is to add a click handler :)
 function Pet:handleCursorClickDown()
-    -- TODO: remove later
-    self.animation:setState("needy")
+    print('pet was clicked')
 end
 
+-- used in the dev debug menu
 function Pet:getAnimationNames()
     local ret = Utilities.map(self.data.animations, function(item)
         return item[1]

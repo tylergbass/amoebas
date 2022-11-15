@@ -5,6 +5,7 @@ function Utilities.enableDevOptions()
 
 	Noble.showFPS = true;
 
+	-- set current pet animation state
 	playdate.getSystemMenu():addOptionsMenuItem(
 		'State', 
 		PetInstance:getAnimationNames(), 
@@ -13,6 +14,7 @@ function Utilities.enableDevOptions()
 		end
 	)
 
+	-- set current pet, requires game restart
 	playdate.getSystemMenu():addOptionsMenuItem(
 		'Pet', 
 		{ 'microbe1', 'vibrio', 'babyAmoeba' }, 
@@ -42,6 +44,7 @@ function Utilities.centerScreen()
 	return (playdate.display.getWidth()/2), (playdate.display.getHeight()/2)
 end
 
+-- functional map: for each item in `tbl`, apply the transform `f`. Returns the new table
 function Utilities.map(tbl, f)
     local t = {}
     for k,v in pairs(tbl) do
@@ -50,6 +53,7 @@ function Utilities.map(tbl, f)
     return t
 end
 
+-- get the index of an item in a list; if not found return 0
 function Utilities.getIndex(list, x)
 	for idx, v in pairs(list) do
 		if v == x then return idx end

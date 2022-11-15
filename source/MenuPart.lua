@@ -21,7 +21,9 @@ function MenuPart:init(id, zIndex)
     end
     
     self:setSize(400, 240);
-    self:setCollideRect( 0, 0, 50, 50 );
+
+    -- TODO: add the correct position/dimensions for each menu part's collideRect
+    -- self:setCollideRect( 0, 0, 50, 50 );
 end
 
 function MenuPart:draw(__x, __y)

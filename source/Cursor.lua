@@ -2,6 +2,7 @@ Cursor = {}
 
 class('Cursor').extends(NobleSprite)
 
+-- Cursor is disabled by default. Enable by calling `Cursor:setActive(true)` in a scene
 function Cursor:init()
     Cursor.super.init(
         self, 
@@ -13,6 +14,7 @@ function Cursor:init()
     self.isActive = false;
     self:setVisible(false);
 
+    -- You can add more states here; this is a small subset of the cursor sprite sheet
     self.animation:addState("default", 7, 7, nil, true, nil, 3);
     self.animation:addState("pointer", 27, 27, nil, true, nil, 3);
     self.animation:addState("click", 28, 28, nil, true, nil, 3);

@@ -21,9 +21,11 @@ Noble.GameData.setup({
 	}
 })
 
+-- Singletons --
 CursorInstance = Cursor();
 PetInstance = Pet(Noble.GameData.get('pet'))
 MenuInstance = Menu();
+-----------------
 
 DEBUG_MODE = true;
 if DEBUG_MODE then
