@@ -7,22 +7,25 @@ import 'utilities/Utilities'
 
 -- TODO
 Noble.Settings.setup({
-	Difficulty = "Medium"
+	Difficulty = "Medium" --does not do anything
 })
 
--- TODO
+-- TODO not all of these are used
 Noble.GameData.setup({
 	pet = {
 		type = 'babyAmoeba',
 		name = 'Hero',
 		status = {
-			happiness = 1
+			happiness = 1, 
+			hunger = 0,
+			age = 0
 		},    
 	}
 })
 
+--singletons
 CursorInstance = Cursor();
-PetInstance = Pet(Noble.GameData.get('pet'))
+PetInstance = Pet(Noble.GameData.get('pet'));
 MenuInstance = Menu();
 
 DEBUG_MODE = true;

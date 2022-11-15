@@ -1,2 +1,2 @@
-# Update the tile card with a subtitle--helpful for testing builds
+# Update the tile card with a subtitle--helpful for testing builds (run on command line) (needs graphics magics installed)
 gm convert card-base.png  -font Arial -pointsize 20 -draw "gravity south fill black  text 0,12 'Add some time here' " card.png
